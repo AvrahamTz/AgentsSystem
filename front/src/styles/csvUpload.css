@@ -1,0 +1,91 @@
+.csv-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.csv-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.csv-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.csv-form input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.csv-form button {
+  padding: 12px;
+  background: #4a7cff;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.csv-form button:hover {
+  background: #355fd4;
+}
+
+.csv-message {
+  margin-top: 20px;
+  font-weight: 600;
+  color: #2c7a2c;
+}.csv-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.csv-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.csv-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.csv-form input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.csv-form button {
+  padding: 12px;
+  background: #4a7cff;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.csv-form button:hover {
+  background: #355fd4;
+}
+
+.csv-message {
+  margin-top: 20px;
+  font-weight: 600;
+  color: #2c7a2c;
+}

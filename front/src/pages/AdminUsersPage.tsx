@@ -21,7 +21,7 @@ export default function AdminUsersPage() {
       }
     })
       .then((r) => r.json())
-      .then((data) => setUsers(data));
+      .then((data) => setUsers(data.user));
   }, []);
 
   return (

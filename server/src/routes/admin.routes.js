@@ -46,9 +46,9 @@ router.post("/users", authMiddleware, adminOnly, async (req, res) => {
 router.get("/users", authMiddleware, adminOnly, async (req, res) => {
    try {
      const agents = await db.collection("agents").find().toArray()
-     console.log(agents);
      
-     res.send(agents)
+     
+     res.send({user:agents})
  
    } catch (err) {
      console.error(err);

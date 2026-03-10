@@ -1,7 +1,8 @@
 
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
-
+import NewReportPage from "./pages/NewReportPage";
+import CSVUploadPage from "./pages/CSVUploadPage";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -42,23 +43,50 @@ export default function App() {
 
         <Route path="/" element={<LoginPage />} />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute user={user}>
-              <Dashboard user={user} />
-            </ProtectedRoute>
-          }
-          
-        />
-        <Route
-          path="/admin/users"
-          element={
-          <ProtectedRoute user={user}>
-          <AdminUsersPage />
-          </ProtectedRoute>
-          }
-        />
+    <Route
+      path="/dashboard"
+      element={
+      <ProtectedRoute>
+      <Dashboard />
+      </ProtectedRoute>
+      }
+    />
+
+    <Route
+      path="/new-report"
+      element={
+      <ProtectedRoute role="agent">
+        <NewReportPage />
+      </ProtectedRoute>
+      }
+    />
+
+    <Route
+      path="/upload-csv"
+      element={
+      <ProtectedRoute role="agent">
+        <CSVUploadPage />
+      </ProtectedRoute>
+      }
+    />
+
+    <Route
+      path="/admin/users"
+      element={
+      <ProtectedRoute role="admin">
+        <AdminUsersPage />
+      </ProtectedRoute>
+      }
+    />
+
+    {/* <Route
+      path="/admin/reports"
+      element={
+      <ProtectedRoute role="admin">
+        {/* <AdminReportsPage />
+      </ProtectedRoute>
+      }
+    /> */}
 
       </Routes>
     </BrowserRouter>

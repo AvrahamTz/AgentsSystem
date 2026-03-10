@@ -34,7 +34,7 @@ router.post("/login", async (req, res) => {
   res.json({
     token,
     user: {
-      id: user.id,
+      id: user._id,
       agentCode: user.agentCode,
       fullName: user.fullName,
       role: user.role
@@ -43,7 +43,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/me", authMiddleware, (req, res) => {
-  res.json({ user: req.user });
+  console.log(req.user)
+  return res.json({ user: req.user });
 });
 
 export default router;
