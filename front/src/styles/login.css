@@ -1,0 +1,38 @@
+
+.login-container{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.login-box{
+background:white;
+padding:40px;
+border-radius:10px;
+width:300px;
+display:flex;
+flex-direction:column;
+gap:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.login-box input{
+padding:10px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+.login-box button{
+padding:10px;
+background:#2d6cdf;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.error{
+color:red;
+font-size:14px;
+}
