@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuthStore } from "../store/AuthStore";
 import "../styles/reportPage.css"
 
@@ -10,10 +10,16 @@ export default function NewReportPage() {
   const [urgency, setUrgency] = useState("");
   const [message, setMessage] = useState("");
   const [image, setImage] = useState<File | null>(null);
+  const [loading,isLoading] = useState(false)
+  const fileRef = useRef<HTMLInputElement | null>(null);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
+    isLoading(true);
+    setSuccessMsg("");
+    setErrorMsg("");
     const formData = new FormData();
     formData.append("category", category);
     formData.append("urgency", urgency);
@@ -32,17 +38,28 @@ export default function NewReportPage() {
     });
 
     const data = await res.json();
+    if (!res.ok) {
+      setErrorMsg(data.error || "Failed to send report");
+      isLoading(false);
+    return;
+    }
+    setSuccessMsg("Report sent successfully!");
     console.log(data);
     setCategory("");
     setUrgency("");
     setMessage("");
     setImage(null);
+    if (fileRef.current) {
+      fileRef.current.value = "";
+    }
+    isLoading(false);
   };
 
    return (
     <div className="report-container">
       <h2>New Report</h2>
-
+        {successMsg && <p className="success-msg">{successMsg}</p>}
+        {errorMsg && <p className="error-msg">{errorMsg}</p>}
       <form className="report-form" onSubmit={handleSubmit}>
 
         <label>Category</label>
@@ -75,13 +92,14 @@ export default function NewReportPage() {
 
         <label>Image</label>
         <input
+          ref={fileRef}
           className="file-input"
           type="file"
           onChange={(e)=>setImage(e.target.files?.[0] || null)}
         />
 
-        <button className="submit-btn">
-          Send Report
+        <button className="submit-btn" disabled={loading}>
+          {loading ? "Sending..." : "Send Report"}
         </button>
 
       </form>

@@ -9,6 +9,7 @@ type Report = {
   message: string;
   sourceType: string;
   createdAt: string;
+  imagePath?:string;
 };
 
 export default function MyReportsPage() {
@@ -55,6 +56,16 @@ export default function MyReportsPage() {
               <td>{report.message}</td>
               <td>{report.sourceType}</td>
               <td>{new Date(report.createdAt).toLocaleDateString()}</td>
+
+              <td>
+                {report.imagePath && (
+                  <img
+                    className="report-image"
+                    src={`http://localhost:3000/${report.imagePath}`}
+                    alt="report"
+                  />
+                )}
+              </td>
             </tr>
           ))}
         </tbody>

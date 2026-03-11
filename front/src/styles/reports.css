@@ -26,8 +26,33 @@
 .reports-table td {
   border: 1px solid #ccc;
   padding: 10px;
+  color: rgb(201, 102, 119);
 }
 
 .reports-table th {
-  background: #f4f4f4;
+  background: #333;
+  color:red;
+  padding: 10px;
+}
+.report-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.success-msg {
+  color: green;
+  background: #e6ffe6;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.error-msg {
+  color: red;
+  background: #ffe6e6;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
 }
