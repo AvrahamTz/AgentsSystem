@@ -1,0 +1,33 @@
+.reports-page {
+  padding: 30px;
+}
+
+.reports-page h2 {
+  margin-bottom: 20px;
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.filters select,
+.filters button {
+  padding: 6px 10px;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reports-table th,
+.reports-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.reports-table th {
+  background: #f4f4f4;
+}

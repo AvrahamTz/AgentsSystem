@@ -33,6 +33,10 @@ export default function NewReportPage() {
 
     const data = await res.json();
     console.log(data);
+    setCategory("");
+    setUrgency("");
+    setMessage("");
+    setImage(null);
   };
 
    return (

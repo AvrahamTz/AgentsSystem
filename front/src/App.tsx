@@ -9,6 +9,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import { useAuthStore } from "./store/AuthStore";
 import AdminUsersPage from "./pages/AdminUsersPage";
+import AdminReportsPage from "./pages/AdminReportPage";
+import MyReportsPage from "./pages/MyReportsPage";
 export default function App() {
   const { user, token, setAuth, logout } = useAuthStore();
   const [loading, setLoading] = useState(true);
@@ -79,15 +81,22 @@ export default function App() {
       }
     />
 
-    {/* <Route
+    <Route
       path="/admin/reports"
       element={
       <ProtectedRoute role="admin">
-        {/* <AdminReportsPage />
+         <AdminReportsPage />
       </ProtectedRoute>
       }
-    /> */}
-
+    />
+     <Route
+      path="/my-reports"
+      element={
+      <ProtectedRoute role="agent">
+         <MyReportsPage />
+      </ProtectedRoute>
+      }
+    />
       </Routes>
     </BrowserRouter>
   );

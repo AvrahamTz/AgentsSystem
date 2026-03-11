@@ -1,17 +1,10 @@
 import { db } from "../data/users.js";
-import { authMiddleware } from "../middleware/auth.middleware.js";
-import { upload, uploadCSV } from "../middleware/upload.js";
+import { adminOnly, authMiddleware } from "../middleware/auth.middleware.js";
+import { image, uploadCSV } from "../middleware/upload.js";
 import express from 'express'
 import csv from "async-csv"
-
-
-  
-    
-     
-    
-
 const router = express.Router();
-router.post("/",authMiddleware,upload.single("image"),async (req, res) => {
+router.post("/",authMiddleware,image,async (req, res) => {
     const { category, urgency, message } = req.body;
 
     if (!category || !urgency || !message) {
@@ -29,7 +22,7 @@ router.post("/",authMiddleware,upload.single("image"),async (req, res) => {
     };
     await db.collection("reports").insertOne(report);
 
-    res.status(201).json({ report });
+    return res.status(201).json({ report });
   }
 );
 
@@ -40,7 +33,6 @@ router.post("/csv",authMiddleware,uploadCSV.single("csvFile"), async (req, res) 
   
       const csvText = req.file.buffer.toString("utf8");
       const data= await csv.parse(csvText);
-      console.log(data);
       
       const headers = data[0];
         if (
@@ -69,7 +61,54 @@ router.post("/csv",authMiddleware,uploadCSV.single("csvFile"), async (req, res) 
         reports
         });
     });
+    router.get("/my",authMiddleware, async (req, res) => {
+      try {
+        const reports = await db.collection("reports").find({ userId: req.user.id }).sort({ createdAt: -1 }).toArray();
+        return res.json(reports);
+      } catch (err) {
+        res.status(500).json({ error: "Failed to fetch reports" });
+      }
+    });
+    
+    router.get("/",authMiddleware,adminOnly, async (req, res) => {
+      try {
+        const { category, urgency } = req.query;
+
+        const filter = {};
+
+        if (category) filter.category = category;
+        if (urgency) filter.urgency = urgency;
+
+        const reports = await db.collection("reports").find(filter).sort({ createdAt: -1 }).toArray();
+        return res.json(reports);
+      } catch (err) {
+        res.status(500).json({ error: "Failed to fetch reports" });
+      }
+    });
 
   
+
+  router.get("/:id",authMiddleware, async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const report = await db.collection("reports").findOne({ _id: new ObjectId(id) });
+      if (!report) {
+        return res.status(404).json({ error: "Report not found" });
+      }
+      if (
+        req.user.role === "agent" &&
+        report.userId !== req.user.id
+        ) {
+        return res.status(403).json({ error: "Forbidden" });
+      } 
+
+      return res.status(200).json({ report });
+
+    } catch (err) {
+      return res.status(500).json({ error: "Server error" });
+    }
+  });
+
   
 export default router

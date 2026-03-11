@@ -43,7 +43,6 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/me", authMiddleware, (req, res) => {
-  console.log(req.user)
   return res.json({ user: req.user });
 });
 
