@@ -19,10 +19,10 @@ export default function AdminReportsPage() {
   const [reports, setReports] = useState<Report[]>([]);
   const [category, setCategory] = useState("");
   const [urgency, setUrgency] = useState("");
-
+  const [userId,setUserId] = useState("");
   const fetchReports = () => {
     const params = new URLSearchParams();
-
+    if (userId) params.append("userId",userId)
     if (category) params.append("category", category);
     if (urgency) params.append("urgency", urgency);
 
@@ -44,6 +44,10 @@ export default function AdminReportsPage() {
       <h2>Admin Reports</h2>
 
       <div className="filters">
+        <input type="text" 
+          value={userId} 
+          placeholder="agentId" 
+          onChange={(e) => setUserId(e.target.value)}/>
 
         <select
           value={category}

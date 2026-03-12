@@ -3,6 +3,7 @@ import { adminOnly, authMiddleware } from "../middleware/auth.middleware.js";
 import { image, uploadCSV } from "../middleware/upload.js";
 import express from 'express'
 import csv from "async-csv"
+import { ObjectId } from "mongodb";
 const router = express.Router();
 router.post("/",authMiddleware,image,async (req, res) => {
     const { category, urgency, message } = req.body;
@@ -72,10 +73,10 @@ router.post("/csv",authMiddleware,uploadCSV.single("csvFile"), async (req, res) 
     
     router.get("/",authMiddleware,adminOnly, async (req, res) => {
       try {
-        const { category, urgency } = req.query;
+        const { category, urgency,userId } = req.query;
 
         const filter = {};
-
+        if (userId) filter.userId = userId;
         if (category) filter.category = category;
         if (urgency) filter.urgency = urgency;
 
